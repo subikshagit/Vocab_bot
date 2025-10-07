@@ -14,11 +14,10 @@ const BotPage = () => {
         "👋 Hi! I’m VocabGenie. What word should I define for you today?",
     },
   ]);
-  
   const [chatInput, setChatInput] = useState("");
   const [botLoading, setBotLoading] = useState(false);
   const [showBot, setShowBot] = useState(true);
-
+  const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -36,10 +35,10 @@ const BotPage = () => {
     const input = chatInput;
     setChatInput("");
     setBotLoading(true);
-
+    
     try {
       const response = await authRequest(
-        `http://localhost:8000/api/ai-definition/?word=${input}`
+        `${API_URL}/api/ai-definition/?word=${input}`
       );
       const data = await response.json();
 

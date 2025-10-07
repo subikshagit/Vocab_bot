@@ -17,13 +17,16 @@ const Quiz = () => {
   const [score, setScore] = useState(0);
   const [quizComplete, setQuizComplete] = useState(false);
   const [count, setCount] = useState(0);
+  const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
+
+  
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const response = await authRequest("http://localhost:8000/api/learning-list/count/");
+        const response = await authRequest(`${API_URL}/api/learning-list/count/`);
         const data = await response.json();
         setCount(data.count);
       } catch (error) {
@@ -39,7 +42,7 @@ const Quiz = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await authRequest("http://localhost:8000/api/quiz-questions/", {
+        const response = await authRequest(`${API_URL}/api/quiz-questions/`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -77,7 +80,7 @@ const Quiz = () => {
 
       };
 
-      const response = await authRequest("http://localhost:8000/api/save-quiz-attempt/", {
+      const response = await authRequest(`${API_URL}/api/save-quiz-attempt/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

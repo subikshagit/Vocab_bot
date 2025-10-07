@@ -27,12 +27,14 @@ const QuizReviewPage = () => {
   const navigate = useNavigate();
   const [attempt, setAttempt] = useState<QuizAttempt | null>(null);
   const [loading, setLoading] = useState(true);
+  const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
+
 
   useEffect(() => {
     const fetchAttempt = async () => {
       try {
         const response = await authRequest(
-          `http://localhost:8000/api/quiz-attempts/${id}/`
+         `${API_URL}/api/quiz-attempts/${id}/`
         );
         const data = await response.json();
         setAttempt(data);

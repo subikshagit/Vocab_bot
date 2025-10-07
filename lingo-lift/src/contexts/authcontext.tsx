@@ -1,3 +1,6 @@
+const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
+
+
 
 export const authRequest = async (url: string, options: RequestInit = {}) => {
   let accessToken = localStorage.getItem("access_token");
@@ -18,7 +21,7 @@ export const authRequest = async (url: string, options: RequestInit = {}) => {
 
   // If unauthorized, try refreshing token and retry
   if (response.status === 401) {
-    const refreshResponse = await fetch("http://localhost:8000/api/token/refresh/", {
+    const refreshResponse = await fetch(`${API_URL}/api/token/refresh/`, {
       method: "POST",   
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh: refreshToken }),

@@ -7,11 +7,13 @@ import { authRequest } from "@/contexts/authcontext";  // ✅ import your helper
 const ReviewWords = () => {
   const [words, setWords] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
+
 
   useEffect(() => {
     const fetchWords = async () => {
       try {
-        const res = await authRequest("http://localhost:8000/api/review-words/", {
+        const res = await authRequest(`${API_URL}0/api/review-words/`, {
           method: "GET",
         });
         const data = await res.json();

@@ -29,6 +29,8 @@ const Profile = () => {
   const [streak, setStreak] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
   const [recentQuizzes, setRecentQuizzes] = useState<any[]>([]);
+  const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
+
   // ✅ Logout handler
   const handleLogout = () => {
     localStorage.removeItem("access_token");
@@ -38,7 +40,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchStreak = async () => {
       try {
-        const response = await authRequest("http://localhost:8000/api/quiz/streak/");
+        const response = await authRequest(`${API_URL}/api/quiz/streak/`);
         const data = await response.json();
         setStreak(data.streak);
       } catch (error) {
@@ -52,7 +54,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchAccuracy = async () => {
       try {
-        const response = await authRequest("http://localhost:8000/api/quiz/average-accuracy/");
+        const response = await authRequest(`${API_URL}/api/quiz/average-accuracy/`);
         const data = await response.json();
         setAccuracy(data.accuracy);
       } catch (error) {
@@ -67,7 +69,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await authRequest("http://localhost:8000/api/auth/profile/");
+        const res = await authRequest(`${API_URL}/api/auth/profile/`);
         const data = await res.json();
         setProfile(data);
       } catch (err) {
@@ -82,7 +84,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const response = await authRequest("http://localhost:8000/api/learning-list/count/");
+        const response = await authRequest(`${API_URL}/api/learning-list/count/`);
         const data = await response.json();
         setCount(data.count);
       } catch (error) {
@@ -97,7 +99,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchRecentQuizzes = async () => {
       try {
-        const response = await authRequest("http://localhost:8000/api/quiz/recent/");
+        const response = await authRequest(`${API_URL}/api/quiz/recent/`);
         const data = await response.json();
         setRecentQuizzes(data);
       } catch (error) {

@@ -3,14 +3,17 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { BookOpen } from "lucide-react";
 import { authRequest } from "@/contexts/authcontext";
 
+
 const LearningListPage = () => {
   const [learningList, setLearningList] = useState([]);
   const [error, setError] = useState("");
+  const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
+
 
   useEffect(() => {
     const fetchLearningList = async () => {
       try {
-        const response = await authRequest("http://localhost:8000/api/learning-list/view/", {
+        const response = await authRequest(`${API_URL}/api/learning-list/view/`, {
           method: "GET",
         });
         const data = await response.json();

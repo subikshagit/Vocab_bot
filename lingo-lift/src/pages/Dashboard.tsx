@@ -21,11 +21,13 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [isBotOpen, setIsBotOpen] = useState(false);
   const navigate = useNavigate();
+  const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
+
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await authRequest("http://localhost:8000/api/auth/profile/");
+        const res = await authRequest(`${API_URL}/api/auth/profile/`);
         const data = await res.json();
         setProfile(data);
       } catch (err) {
@@ -38,7 +40,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/words/random")
+    fetch(`${API_URL}/api/words/random`)
       .then(res => res.json())
       .then(data => setWord(data))
       .catch(err => setError("Error fetching word: " + err.message));
@@ -47,7 +49,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const response = await authRequest("http://localhost:8000/api/learning-list/count/");
+        const response = await authRequest(`${API_URL}/api/learning-list/count/`);
         const data = await response.json();
         setCount(data.count);
       } catch (error) {
@@ -60,7 +62,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStreak = async () => {
       try {
-        const response = await authRequest("http://localhost:8000/api/quiz/streak/");
+        const response = await authRequest(`${API_URL}/api/quiz/streak/`);
         const data = await response.json();
         setStreak(data.streak);
       } catch (error) {
@@ -73,7 +75,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchAccuracy = async () => {
       try {
-        const response = await authRequest("http://localhost:8000/api/quiz/average-accuracy/");
+        const response = await authRequest(`${API_URL}/api/quiz/average-accuracy/`);
         const data = await response.json();
         setAccuracy(data.accuracy);
       } catch (error) {
@@ -89,7 +91,7 @@ const Dashboard = () => {
     setResult(null);
     try {
       const response = await authRequest(
-        `http://localhost:8000/api/words/search/?q=${searchWord}`,
+        `${API_URL}/api/words/search/?q=${searchWord}`,
         { method: "GET" }
       );
       const data = await response.json();
@@ -107,7 +109,7 @@ const Dashboard = () => {
   const handleAddToLearning = async (wordId) => {
     setError("");
     try {
-      const response = await authRequest("http://localhost:8000/api/learning-list/", {
+      const response = await authRequest(`${API_URL}/api/learning-list/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ word_id: wordId }),

@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, User, Mail, Lock, CheckCircle } from "lucide-react";
+const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
+
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +27,7 @@ const navigate = useNavigate();
   e.preventDefault();
 
   try {
-    const response = await fetch("http://localhost:8000/api/auth/register", {
+    const response = await fetch(`${API_URL}/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

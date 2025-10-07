@@ -8,6 +8,8 @@ import { BookOpen, Mail, Lock } from "lucide-react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const API_URL =  import.meta.env.VITE_BACKEND_API_URL;
+
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -24,7 +26,7 @@ const Login = () => {
   e.preventDefault();
 
   try {
-    const response = await fetch("http://localhost:8000/api/auth/login", {
+    const response = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
